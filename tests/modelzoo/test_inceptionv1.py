@@ -18,7 +18,7 @@ from __future__ import absolute_import, division, print_function
 import pytest
 
 import torch
-from lucent.modelzoo import inceptionv1
+from lucent.modelzoo import inceptionv1, util
 
 
 important_layer_names = [
@@ -36,6 +36,6 @@ important_layer_names = [
 
 def test_inceptionv1_graph_import():
     model = inceptionv1()
-    layer_names = list(dict(model.named_children()).keys())
+    layer_names = util.get_model_layers(model)
     for layer_name in important_layer_names:
         assert layer_name in layer_names
