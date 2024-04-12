@@ -41,12 +41,17 @@ def render_vis(
     image_name=None,
     show_inline=False,
     fixed_image_size=None,
+    allow_keyboard_interrupt=False,
 ):
     if param_f is None:
         param_f = lambda: param.image(128)
     # param_f is a function that should return two things
     # params - parameters to update, which we pass to the optimizer
     # image_f - a function that returns an image as a tensor
+    # allow_keyboard_interrupt - if true, will continue executing code after catching
+    #   Note: be careful using this if executing render_vis many times in a loop
+    #   as the code won't cease execution.
+
     params, image_f = param_f()
 
     if optimizer is None:
@@ -119,10 +124,13 @@ def render_vis(
                         show(image)
                 images.append(image)
     except KeyboardInterrupt:
-        print("Interrupted optimization at step {:d}.".format(i))
-        if verbose:
-            print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
-        images.append(tensor_to_img_array(image_f()))
+        if allow_keyboard_interrupt:
+            print("Interrupted optimization at step {:d}.".format(i))
+            if verbose:
+                print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))
+            images.append(tensor_to_img_array(image_f()))
+        else:
+            raise KeyboardInterrupt
 
     if save_image:
         export(image_f(), image_name)
