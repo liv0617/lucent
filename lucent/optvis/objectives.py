@@ -366,3 +366,8 @@ def as_objective(obj):
         layer, chn = obj.split(":")
         layer, chn = layer.strip(), int(chn)
         return channel(layer, chn)
+    
+@wrap_objective()
+def L2(layer="input", constant=0, epsilon=1e-6):
+    """L2 norm of layer. Generally used as penalty."""
+    return lambda T: torch.sqrt(epsilon + torch.sum((T(layer) - constant) ** 2))
