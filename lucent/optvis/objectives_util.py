@@ -17,6 +17,20 @@
 
 from __future__ import absolute_import, division, print_function
 
+import torch
+
+def _dot_cossim(x, y, cossim_pow):
+  eps = 1e-4
+  x = torch.squeeze(x)
+  y = torch.squeeze(y)
+  xy_dot = torch.dot(x, y)
+  if cossim_pow == 0: return xy_dot.mean()
+  x_mags = torch.sqrt(torch.dot(x,x))
+  y_mags = torch.sqrt(torch.dot(y,y))
+  cossims = xy_dot / (eps + x_mags ) / (eps + y_mags)
+  floored_cossims = cossims.clamp(0.1)
+  return (xy_dot * floored_cossims**cossim_pow).mean()
+
 
 def _make_arg_str(arg):
     arg = str(arg)
