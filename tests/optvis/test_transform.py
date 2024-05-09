@@ -22,7 +22,7 @@ import numpy as np
 from lucent.optvis import transform
 
 
-device = torch.device("" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def test_pad_reflect():
