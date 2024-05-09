@@ -29,7 +29,7 @@ set_seed(137)
 
 
 NUM_STEPS = 5
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("" if torch.cuda.is_available() else "cpu")
 
 @pytest.fixture
 def inceptionv1_model():

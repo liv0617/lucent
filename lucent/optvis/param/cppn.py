@@ -36,7 +36,7 @@ def cppn(size, num_output_channels=3, num_hidden_channels=24, num_layers=8,
     x = coord_range.view(-1, 1).repeat(1, coord_range.size(0))
     y = coord_range.view(1, -1).repeat(coord_range.size(0), 1)
 
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("" if torch.cuda.is_available() else "cpu")
 
     input_tensor = torch.stack([x, y], dim=0).unsqueeze(0).to(device)
 
