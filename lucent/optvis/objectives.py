@@ -225,13 +225,13 @@ def direction_neuron(layer,
         # breakpoint()
         layer_t = model(layer)
         layer_t = _extract_act_pos(layer_t, x, y)
-        return -_dot_cossim(layer_t, direction[None, None, None], cossim_pow=cossim_pow)
+        return _dot_cossim(layer_t, direction[None, None, None], cossim_pow=cossim_pow)
 
     return inner
 
 
 def _torch_blur(tensor, out_c=3):
-    device = torch.device("" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     depth = tensor.shape[1]
     weight = np.zeros([depth, depth, out_c, out_c])
     for ch in range(depth):

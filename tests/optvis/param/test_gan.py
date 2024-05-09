@@ -6,7 +6,7 @@ from lucent.optvis import param, render, objectives
 from lucent.optvis.param.gan import upconvGAN
 from lucent.modelzoo import inceptionv1
 
-device = torch.device("" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 NUM_STEPS = 5
 

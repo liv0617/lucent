@@ -19,7 +19,7 @@ import torch
 import numpy as np
 
 
-device = torch.device("" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 TORCH_VERSION = torch.__version__
 
 
