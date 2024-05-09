@@ -23,7 +23,7 @@ import kornia
 from kornia.geometry.transform import translate
 
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("" if torch.cuda.is_available() else "cpu")
 KORNIA_VERSION = kornia.__version__
 
 

@@ -24,7 +24,7 @@ from lucent.modelzoo import inceptionv1
 
 @pytest.fixture
 def inceptionv1_model():
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("" if torch.cuda.is_available() else "cpu")
     model = inceptionv1().to(device).eval()
     return model
 
