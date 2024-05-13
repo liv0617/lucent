@@ -53,3 +53,15 @@ def _T_handle_batch(T, batch=None):
         else:
             return t
     return T2
+
+layer_branches = {
+    "mixed3a": {"1x1": 64, "3x3": 128, "5x5": 32, "pool_reduce": 32},
+    "mixed3b": {"1x1": 128, "3x3": 192, "5x5": 96, "pool_reduce": 64},
+    "mixed4a": {"1x1": 192, "3x3": 204, "5x5": 48, "pool_reduce": 64},
+    "mixed4b": {"1x1": 160, "3x3": 224, "5x5": 64, "pool_reduce": 64},
+    "mixed4c": {"1x1": 128, "3x3": 256, "5x5": 64, "pool_reduce": 64},
+    "mixed4d": {"1x1": 112, "3x3": 288, "5x5": 64, "pool_reduce": 64},
+    "mixed4e": {"1x1": 256, "3x3": 320, "5x5": 128, "pool_reduce": 128},
+    "mixed5a": {"1x1": 256, "3x3": 320, "5x5": 128, "pool_reduce": 128},
+    "mixed5b": {"1x1": 384, "3x3": 384, "5x5": 128, "pool_reduce": 128},
+}
