@@ -19,7 +19,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from decorator import decorator
-from lucent.optvis.objectives_util import _dot_cossim, _make_arg_str, _extract_act_pos, _T_handle_batch
+from lucent.optvis.objectives_util import _dot_cossim, _make_arg_str, _extract_act_pos, _T_handle_batch, layer_branches
 
 
 class Objective():
@@ -201,7 +201,8 @@ def direction_neuron(layer,
                      x=None,
                      y=None,
                      cossim_pow=0,
-                     batch=None):
+                     batch=None,
+                     branch=None):
     """Visualize a single (x, y) position along the given direction
 
     Similar to the neuron objective, defaults to the center neuron.
@@ -225,6 +226,11 @@ def direction_neuron(layer,
         # breakpoint()
         layer_t = model(layer)
         layer_t = _extract_act_pos(layer_t, x, y)
+        if branch:
+            branches = list(layer_branches[layer].keys())
+            branch_start = sum([layer_branches[layer][b] for b in branches[:branches.index(branch)]])
+            layer_t = layer_t[:, branch_start:branch_start + layer_branches[layer][branch], :, :]
+
         return -_dot_cossim(layer_t, direction[None, None, None], cossim_pow=cossim_pow)
 
     return inner
