@@ -225,7 +225,7 @@ def direction_neuron(layer,
         # breakpoint()
         layer_t = model(layer)
         layer_t = _extract_act_pos(layer_t, x, y)
-        return _dot_cossim(layer_t, direction[None, None, None], cossim_pow=cossim_pow)
+        return -_dot_cossim(layer_t, direction[None, None, None], cossim_pow=cossim_pow)
 
     return inner
 
