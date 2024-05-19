@@ -1,5 +1,14 @@
 ![](https://github.com/greentfrapp/lucent/raw/master/images/lucent_header.jpg)
 
+## About this fork
+
+I've been doing some vision model interpretability work using the original Lucent library. This fork contains a bunch of updates / bug fixes that I've found useful for my own projects. The changes I've made are:
+
+- add an L2 objective.
+- update the default `direction_neuron` objective's behaviour to use dot product which is more reflective of the [original Lucid library](https://github.com/tensorflow/lucid).
+- add capacity to visualise a single branch of an inception module.
+- if `torch.cuda.is_available()`, don't use `cuda:0` by default. Instead, allow for specific GPU usage via `torch.cuda.set_device(device)` or setting the `CUDA_VISIBLE_DEVICES` environmental variable.
+
 # Lucent
 
 <!--*It's still magic even if you know how it's done. GNU Terry Pratchett*-->
